@@ -32,12 +32,13 @@ const App = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
+          {/* <Header /> */}
+          <View style={{width: 100, height: 50, backgroundColor: 'blue'}}>
+            <Text>this is test a</Text>
+          </View>
+          <View style={styles.test}>
+            <Text>tttt</Text>
+          </View>
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One this is test</Text>
@@ -63,6 +64,11 @@ const styles = StyleSheet.create({
   },
   body: {
     backgroundColor: Colors.white,
+  },
+  test: {
+    flex: 1,
+    height: 50,
+    backgroundColor: 'red',
   },
   sectionContainer: {
     marginTop: 32,
