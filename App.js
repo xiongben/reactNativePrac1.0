@@ -14,6 +14,7 @@ import {
   View,
   Text,
   StatusBar,
+  TextInput,
 } from 'react-native';
 
 import {
@@ -23,6 +24,8 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import ImageTest from './component/Image';
 
 const App = () => {
   return (
@@ -39,6 +42,12 @@ const App = () => {
           <View style={styles.test}>
             <Text>tttt</Text>
           </View>
+          <TextInput
+              style={{height: 40}}
+              placeholder="this is input"
+
+          />
+          <ImageTest name="jack"/>
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One this is test</Text>
