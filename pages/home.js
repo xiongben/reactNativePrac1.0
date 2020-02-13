@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -27,7 +19,7 @@ import {
 
 
 
-const App = () => {
+const Home = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -35,8 +27,21 @@ const App = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
+          {/* <Header /> */}
+          <View style={{width: 100, height: 50, backgroundColor: 'blue'}}>
+            <Text>this is home page</Text>
+          </View>
           <View style={styles.test}>
-            <Text style={{fontSize: 30}}>App page</Text>
+            <Text>tttt</Text>
+          </View>
+          <View style={styles.body}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Step One this is test</Text>
+              <Text style={styles.sectionDescription}>
+                Edit <Text style={styles.highlight}>App.js</Text> to change this
+                screen and then come back to see your edits.
+              </Text>
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -88,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default Home;
