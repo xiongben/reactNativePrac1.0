@@ -25,21 +25,12 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-
+import RouteApp from './router';
 
 const App = () => {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <View style={styles.test}>
-            <Text style={{fontSize: 30}}>App page</Text>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      <RouteApp/>
     </>
   );
 };
