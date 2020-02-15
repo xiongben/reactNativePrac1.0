@@ -27,9 +27,24 @@ import {
 
 import RouteApp from './router';
 
+import { Provider } from 'react-redux';
+import { createStore} from 'redux';
+import reducer from "./reduces/index";
+
+let initialState = {
+	classList:[],
+    wave:[],
+    testnum: 100,
+    listdata: {},
+};
+
+const store = createStore(reducer);
+
 const App = () => {
   return (
-      <RouteApp/>
+    <Provider store={store}>
+        <RouteApp/>
+    </Provider>
   );
 };
 
