@@ -20,7 +20,12 @@ import {
 
 
 
+
 class Home extends Component {
+    static navigationOptions = {
+        title: 'Home33',
+      };
+
   render(){
     return (
         <>
@@ -31,10 +36,10 @@ class Home extends Component {
               style={styles.scrollView}>
               {/* <Header /> */}
               <View style={{width: 100, backgroundColor: 'blue'}}>
-                <Text>this is home page</Text>
+                <Text>this is home page,ok</Text>
                 <Button
                 title="Go to list"
-                onPress={() => this.props.navigation.navigate('List')}
+                onPress={() => this.props.navigation.navigate('List',{id:100,name:"xiao ming"})}
                 />
               </View>
               <View style={styles.test}>

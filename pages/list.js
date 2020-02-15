@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -19,23 +19,36 @@ import {
 
 
 
-const List = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          {/* <Header /> */}
-          <View style={{width: 100, height: 50, backgroundColor: 'blue'}}>
-            <Text>this is list page</Text>
-          </View>
-          
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
+class List extends Component{
+
+  static navigationOptions = {
+      title: 'newList Page',
+  }
+  componentDidMount(){
+     console.log("正在加载list组件");
+  }
+
+  render(){
+    const { navigation } = this.props;
+    console.log(navigation);
+    return (
+        <>
+          <StatusBar barStyle="dark-content" />
+          <SafeAreaView>
+            <ScrollView
+              contentInsetAdjustmentBehavior="automatic"
+              style={styles.scrollView}>
+              {/* <Header /> */}
+              <View style={{width: 100, height: 50, backgroundColor: 'blue'}}>
+                <Text>this is list page</Text>
+              </View>
+              
+            </ScrollView>
+          </SafeAreaView>
+        </>
+      );
+  }
+  
 };
 
 const styles = StyleSheet.create({
