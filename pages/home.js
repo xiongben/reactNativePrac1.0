@@ -29,7 +29,7 @@ class Home extends Component {
   };
 
   componentDidMount(){
-    console.log("66666666666");
+    
   }
 
   addcount(){
@@ -40,7 +40,7 @@ class Home extends Component {
     var testnum = this.props.testnum;
   var text = this.props.text;
   var {increment,incrementMax,decrement,incrementAsync,testobA} = this.props;
-  console.log(testnum,text);
+  // console.log(testnum,text);
     return (
       <>
         <StatusBar barStyle="dark-content" />
@@ -55,9 +55,15 @@ class Home extends Component {
                 title="Go to list"
                 onPress={() => this.props.navigation.navigate('List', { id: 100, name: "xiao ming" })}
               />
+              <Text>=====================</Text>
               <Button
                 title="add count"
-                onPress={() => increment() }
+                onPress={() => increment("同步加入") }
+              />
+              <Text>=====================</Text>
+              <Button
+                title="add count async"
+                onPress={() => incrementAsync("异步加入") }
               />
             </View>
             <View style={styles.test}>

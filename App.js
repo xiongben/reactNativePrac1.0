@@ -28,8 +28,10 @@ import {
 import RouteApp from './router';
 
 import { Provider } from 'react-redux';
-import { createStore} from 'redux';
+import { createStore,applyMiddleware,compose} from 'redux';
 import reducer from "./reduces/index";
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './sagas';
 
 let initialState = {
 	classList:[],
@@ -38,7 +40,22 @@ let initialState = {
     listdata: {},
 };
 
-const store = createStore(reducer);
+const sagaMiddleware = createSagaMiddleware();
+  //sagas
+const middlewares = [sagaMiddleware];
+
+const enhancer = compose(
+  applyMiddleware.apply(null, middlewares),
+  // window.devToolsExtension ? window.devToolsExtension() : f => f
+);
+
+
+const store = createStore(reducer,enhancer);
+
+//sagas
+sagaMiddleware.run(rootSaga);
+
+// const store = createStore(reducer);
 
 const App = () => {
   return (
@@ -47,6 +64,9 @@ const App = () => {
     </Provider>
   );
 };
+
+
+store.subscribe(App);
 
 const styles = StyleSheet.create({
   scrollView: {

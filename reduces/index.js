@@ -11,10 +11,10 @@ let initialState = {
 };
 const reducer = handleActions({
     'INCREMENT': (state,action) => {
-        console.log(action);
+        console.log(state.testnum);
         return {
             ...state,
-            testnum:state.testnum+20,
+            testnum:state.testnum+10,
             text: action.payload.text,
         }
     },
@@ -35,7 +35,7 @@ const reducer = handleActions({
     'INCREMENT_ASYNC': (state, action) => {
         return {
             ...state,
-            testnum:state.testnum+10,
+            testnum:state.testnum,
             text: action.payload.text,
         }
     },
