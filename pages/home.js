@@ -29,7 +29,8 @@ class Home extends Component {
   };
 
   componentDidMount(){
-    
+
+   
   }
 
   addcount(){

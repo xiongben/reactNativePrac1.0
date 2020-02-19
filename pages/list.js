@@ -19,14 +19,14 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-
+import DetailList from './detail'
 
 
 class HomeScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Home!</Text>
+        <Text>Home page 666!</Text>
       </View>
     );
   }
@@ -45,47 +45,10 @@ class SettingsScreen extends React.Component {
 const TabNavigator = createBottomTabNavigator({
   Home: { screen: HomeScreen },
   Settings: { screen: SettingsScreen },
+  Detail: {screen: DetailList},
 });
 
-class List extends Component{
 
-  static navigationOptions = {
-      title: 'newList Page',
-  }
-  componentDidMount(){
-     console.log("正在加载list组件");
-  }
-
-  render(){
-    const { navigation } = this.props;
-    console.log(navigation);
-    return (
-        <>
-          <StatusBar barStyle="dark-content" />
-          <SafeAreaView>
-            <ScrollView
-              contentInsetAdjustmentBehavior="automatic"
-              style={styles.scrollView}>
-              {/* <Header /> */}
-              <View style={{width: 100, height: 50, backgroundColor: 'blue'}}>
-                <Text>this is list page</Text>
-              </View>
-              
-            </ScrollView>
-          </SafeAreaView>
-        </>
-      );
-  }
-  
-};
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  
-  
-});
 
 // export default List;
 export default createAppContainer(TabNavigator);
