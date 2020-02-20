@@ -11,6 +11,9 @@ import {
   TextInput,
 } from 'react-native';
 
+import { WebView } from 'react-native-webview';
+
+
 import {
   Header,
   LearnMoreLinks,
@@ -35,9 +38,7 @@ class HomeScreen extends React.Component {
 class SettingsScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Settings!</Text>
-      </View>
+      <WebView source={{ uri: 'https://facebook.github.io/react-native/' }} />
     );
   }
 }

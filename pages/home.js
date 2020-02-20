@@ -49,8 +49,8 @@ class Home extends Component {
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             style={styles.scrollView}>
-            {/* <Header /> */}
-            <View style={{ width: 100, backgroundColor: 'blue' }}>
+            
+            <View style={{ width: 100}}>
               <Text>this is home page,ok=={testnum}</Text>
               <Button
                 title="Go to list"
@@ -66,18 +66,6 @@ class Home extends Component {
                 title="add count async"
                 onPress={() => incrementAsync("异步加入") }
               />
-            </View>
-            <View style={styles.test}>
-              <Text>tttt</Text>
-            </View>
-            <View style={styles.body}>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Step One this is test</Text>
-                <Text style={styles.sectionDescription}>
-                  Edit <Text style={styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                  </Text>
-              </View>
             </View>
           </ScrollView>
         </SafeAreaView>
