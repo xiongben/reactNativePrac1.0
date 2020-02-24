@@ -50,7 +50,7 @@ class Home extends Component {
             contentInsetAdjustmentBehavior="automatic"
             style={styles.scrollView}>
             
-            <View style={{ width: 100}}>
+            <View style={{ flex: 1}}>
               <Text>this is home page,ok=={testnum}</Text>
               <Button
                 title="Go to list"

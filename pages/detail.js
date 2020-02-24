@@ -29,15 +29,28 @@ class DetailList extends Component {
       }
 
     componentDidMount() {
+        this.getDataList();
+    }
+
+    getDataList() {
         fetch('https://www.loopslive.com/api/broadcast/tab/1/live/list').then((response) => response.json())
             .then((responseJson) => {
-                // console.log("=============")
-                // console.log(typeof (responseJson))
                 let res = responseJson["sessions"];
+                console.log("注意,,请求了一次列表接口")
                 this.setState({
-                    listArr: res
+                    listArr: this.state.listArr.concat(res)
                 });
             });
+    }
+
+    _onEndReached() {
+        console.log("========arrive end=======");
+        this.getDataList();
+    }
+
+    _onRefresh() {
+        console.log("========refresh========")
+        
     }
 
     render() {
@@ -56,7 +69,19 @@ class DetailList extends Component {
              </View>
             )
         };
-        console.log(navigation);
+
+        const rendEmpty = ()=> {
+            return (
+                <View><Text>There is no data!</Text></View>
+            )
+        }
+
+        const rendFooter = () => {
+            return (
+                <View><Text>======Footer======</Text></View>
+            )
+        }
+        
         return (
             <>
                 <StatusBar barStyle="dark-content" />
@@ -65,6 +90,12 @@ class DetailList extends Component {
                         data={this.state.listArr}
                         renderItem={({ item }) => rendItem(item)}
                         keyExtractor={(item, index) => index.toString()}
+                        ListEmptyComponent= {()=> rendEmpty()}
+                        onEndReachedThreshold = {1}
+                        onEndReached={()=>this._onEndReached()}
+                        ListFooterComponent={()=>rendFooter()}
+                        onRefresh={()=>this._onRefresh()}
+                        refreshing={false}
                     />
                 </SafeAreaView>
             </>
