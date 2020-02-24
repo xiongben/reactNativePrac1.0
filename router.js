@@ -8,7 +8,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Home from './pages/home';
 import List from './pages/list';
 import Mypage from './pages/mypage';
-
+import VideoTest from './pages/video';
 
  
 // const  RouteApp = StackNavigator({
@@ -35,6 +35,9 @@ const RouteApp = createStackNavigator({
     },
     Mypage: {
       screen: Mypage,
+    },
+    VideoTest: {
+      screen: VideoTest,
     },
   });
   

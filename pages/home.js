@@ -58,6 +58,11 @@ class Home extends Component {
               />
               <Text>=====================</Text>
               <Button
+                title="Go to video"
+                onPress={() => this.props.navigation.navigate('VideoTest', { id: 100, name: "xiao ming" })}
+              />
+              <Text>=====================</Text>
+              <Button
                 title="add count"
                 onPress={() => increment("同步加入") }
               />
