@@ -10,10 +10,12 @@ var ReactNative = require('react-native');
 // var Dimensions = require('Dimensions');
 export var screenW = Dimensions.get('window').width;
 export var screenH = Dimensions.get('window').height;
+
+console.log(screenW,screenH);
 var fontScale = ReactNative.PixelRatio.getFontScale();
 export var pixelRatio = ReactNative.PixelRatio.get();
 const r2=2;
-const w2 = 375/r2;``
+const w2 = 375/r2;
 const h2 = 812/r2;
 /**
  * 设置text为sp

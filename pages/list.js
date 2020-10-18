@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component,useState,useEffect} from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {
@@ -7,8 +7,8 @@ import {
   ScrollView,
   View,
   Text,
-  StatusBar,
-  TextInput,
+  Image,
+  TouchableHighlight,
 } from 'react-native';
 
 import Swiper from 'react-native-swiper'
@@ -17,46 +17,103 @@ import {scaleSize} from './utils/screen';
 
 
 
+
+
 import DetailList from './detail'
+import Mypage from './mypage';
+import request from './api/service_method';
+import servicePath from './api/service_url';
 
 
-class HomeScreen extends React.Component {
-  render() {
-    return (
+let HomeScreen = ()=>{
+  const [bannerData, setBannerData] = useState([]);
+  const [menuArr, setMenuArr] = useState([]);
+
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      let infoObj = await getInfo();
+      setBannerData(infoObj.slides);
+      setMenuArr(infoObj.category);
+
+    }
+    fetchData();
+  },[])
+
+  return (
       <View style={styles.page}>
         <View style={styles.bannerArea}>
-          <Swiper style={styles.wrapper} showsButtons={true}>
-            <View style={styles.slide1}>
-              <Text style={styles.text}>Hello Swiper</Text>
-            </View>
-            <View style={styles.slide2}>
-              <Text style={styles.text}>Beautiful</Text>
-            </View>
-            <View style={styles.slide3}>
-              <Text style={styles.text}>And simple</Text>
-            </View>
-          </Swiper>
+            <Swiper style={styles.wrapper}  autoplay={true} >
+              {bannerData.map((item,key) => {
+                return (
+                    <View style={styles.slide1} key={key} index={0}>
+                      <Image
+                          style={styles.bannerPic}
+                          source={{
+                            uri: item.image,
+                          }}
+                      />
+                    </View>
+                )
+              })}
+            </Swiper>
         </View>
-
-        <View style={styles.content}></View>
-
+        <HeadMenu arrdata={menuArr}></HeadMenu>
       </View>
-    );
-  }
+  )
 }
 
-class SettingsScreen extends React.Component {
-  render() {
-    return (
-      <WebView source={{ uri: 'https://facebook.github.io/react-native/' }} />
-    );
+
+const HeadMenu = (props)=>{
+  console.log(props.arrdata);
+  let arr1 = props.arrdata;
+
+  function _onPressButton(item) {
+     console.log(item);
   }
+  return (
+      <View style={styles.headMenu}>
+        {arr1.map((item,index)=>{
+          return (
+              <TouchableHighlight onPress={()=>_onPressButton(item)} key={index}>
+              <View style={styles.headMenuItem}>
+                <Image style={styles.menuIcon} source={{uri:item.image}}/>
+                <Text style={styles.text1}>{item.mallCategoryName}</Text>
+              </View>
+              </TouchableHighlight>
+          )
+        })}
+      </View>
+  )
 }
+
+
+
+
+let SettingsScreen = () => {
+    return (
+        <View>
+          <Text>this is setting page</Text>
+        </View>
+    );
+}
+
+
+async function getInfo(){
+  let url = "https://www.loopslive.com/api/broadcast/tab/1/live/list";
+  let resArr = [];
+  var formDataParams = {'lon':'115.02932','lat':'35.76189'};
+   let res = await request(servicePath.homePageContent,formDataParams,"post");
+   resArr = res.data
+   return resArr;
+}
+
+
 
 const TabNavigator = createBottomTabNavigator({
   Home: { screen: HomeScreen },
   Settings: { screen: SettingsScreen },
   Detail: {screen: DetailList},
+  Mypage: {screen: Mypage},
 });
 
 
@@ -67,13 +124,18 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   bannerArea:{
-    width: scaleSize(375),
-    height: scaleSize(200),
+    width: '100%',
+    aspectRatio: 2,
     backgroundColor: '#666',
   },
+  bannerPic:{
+    width: '100%',
+    aspectRatio: 2,
+    backgroundColor: "#222",
+  },
   content:{
-    width: scaleSize(187),
-    height: scaleSize(187),
+    width: '100%',
+    aspectRatio: 2,
     backgroundColor: '#000',
   },
   wrapper: {
@@ -85,23 +147,27 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#9DD6EB'
   },
-  slide2: {
-    flex: 1,
+  headMenu:{
+    width: '100%',
+    height: 100,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  text1:{
+    width: 80,
+    height: 20,
+    marginTop: 10,
+    textAlign: 'center',
+  },
+  headMenuItem:{
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#97CAE5'
   },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9'
+  menuIcon:{
+    width:60,
+    height:60,
   },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold'
-  }
 });
 
 
