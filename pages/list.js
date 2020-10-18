@@ -9,6 +9,7 @@ import {
   Text,
   Image,
   TouchableHighlight,
+  FlatList,
 } from 'react-native';
 
 import Swiper from 'react-native-swiper'
@@ -58,6 +59,7 @@ let HomeScreen = ()=>{
             </Swiper>
         </View>
         <HeadMenu arrdata={menuArr}></HeadMenu>
+        <ShopRecommendList/>
       </View>
   )
 }
@@ -86,6 +88,25 @@ const HeadMenu = (props)=>{
   )
 }
 
+const ShopRecommendList = ()=>{
+  let dataArr = [1,2,3,4,5,6,7,8];
+
+  const renderItem = ({ item }) => (
+      <Text>{item}</Text>
+  );
+
+  return(
+      <>
+        <FlatList
+            renderItem={renderItem}
+            data={dataArr}
+            horizontal={true}
+            keyExtractor={item=>item}>
+        </FlatList>
+      </>
+  )
+}
+
 
 
 
@@ -99,7 +120,6 @@ let SettingsScreen = () => {
 
 
 async function getInfo(){
-  let url = "https://www.loopslive.com/api/broadcast/tab/1/live/list";
   let resArr = [];
   var formDataParams = {'lon':'115.02932','lat':'35.76189'};
    let res = await request(servicePath.homePageContent,formDataParams,"post");
@@ -149,9 +169,11 @@ var styles = StyleSheet.create({
   },
   headMenu:{
     width: '100%',
-    height: 100,
+    height: 120,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'yellow',
   },
   text1:{
     width: 80,
