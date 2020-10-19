@@ -29,19 +29,21 @@ import servicePath from './api/service_url';
 let HomeScreen = ()=>{
   const [bannerData, setBannerData] = useState([]);
   const [menuArr, setMenuArr] = useState([]);
+  const [recommendArr, setRecommendArr] = useState([]);
 
   useEffect(()=>{
     const fetchData = async ()=>{
       let infoObj = await getInfo();
       setBannerData(infoObj.slides);
       setMenuArr(infoObj.category);
-
+      setRecommendArr(infoObj.recommend);
     }
     fetchData();
   },[])
 
   return (
       <View style={styles.page}>
+        {/*<FlatList getItemCount={} data={} getItem={}/>*/}
         <View style={styles.bannerArea}>
             <Swiper style={styles.wrapper}  autoplay={true} >
               {bannerData.map((item,key) => {
@@ -59,7 +61,8 @@ let HomeScreen = ()=>{
             </Swiper>
         </View>
         <HeadMenu arrdata={menuArr}></HeadMenu>
-        <ShopRecommendList/>
+        <ShopRecommendList recommendArr={recommendArr}/>
+        <TypeShopList/>
       </View>
   )
 }
@@ -76,7 +79,7 @@ const HeadMenu = (props)=>{
       <View style={styles.headMenu}>
         {arr1.map((item,index)=>{
           return (
-              <TouchableHighlight onPress={()=>_onPressButton(item)} key={index}>
+              <TouchableHighlight onPress={()=>_onPressButton(item)} key={index+"menu"}>
               <View style={styles.headMenuItem}>
                 <Image style={styles.menuIcon} source={{uri:item.image}}/>
                 <Text style={styles.text1}>{item.mallCategoryName}</Text>
@@ -88,21 +91,43 @@ const HeadMenu = (props)=>{
   )
 }
 
-const ShopRecommendList = ()=>{
-  let dataArr = [1,2,3,4,5,6,7,8];
+const ShopRecommendList = (props)=>{
+  let dataArr = props.recommendArr;
 
   const renderItem = ({ item }) => (
-      <Text>{item}</Text>
+      <TouchableHighlight onPress={()=>_toDetailPage(item)} >
+        <View style={styles.recommendItem}>
+           <Image style={styles.recommendPic} source={{uri:item.image}}/>
+           <Text style={styles.recommendText1}>${item.price}</Text>
+          <Text style={styles.recommendText2}>${item.mallPrice}</Text>
+        </View>
+      </TouchableHighlight>
   );
+
+  function _toDetailPage(item){
+    console.log(item);
+  }
 
   return(
       <>
-        <FlatList
-            renderItem={renderItem}
-            data={dataArr}
-            horizontal={true}
-            keyExtractor={item=>item}>
-        </FlatList>
+        <Text style={styles.recommendTitle}>商品推荐</Text>
+        <View style={styles.recommendList}>
+          <FlatList
+
+              renderItem={renderItem}
+              data={dataArr}
+              horizontal={true}
+              keyExtractor={item=>item.goodsId}>
+          </FlatList>
+        </View>
+      </>
+  )
+}
+
+const TypeShopList =()=>{
+  return(
+      <>
+        <Text>888888</Text>
       </>
   )
 }
@@ -111,9 +136,20 @@ const ShopRecommendList = ()=>{
 
 
 let SettingsScreen = () => {
+    const arr1 = [1,2,3,4,5,6]
+    const header = ()=>(
+        <View style={styles.setheader}>
+          <Text>header</Text>
+        </View>
+    )
+  const item = ({item})=>(
+      <View style={styles.setItem}>
+        <Text>{item}</Text>
+      </View>
+  )
     return (
-        <View>
-          <Text>this is setting page</Text>
+        <View style={styles.setpage}>
+           <FlatList renderItem={item} data={arr1} ListHeaderComponent={header} keyExtractor={item=>item}/>
         </View>
     );
 }
@@ -173,7 +209,7 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'yellow',
+    // backgroundColor: 'yellow',
   },
   text1:{
     width: 80,
@@ -190,6 +226,57 @@ var styles = StyleSheet.create({
     width:60,
     height:60,
   },
+  recommendList:{
+    width: '100%',
+    backgroundColor:'#fff',
+    // height: 50,
+  },
+  recommendItem:{
+    width: 100,
+    height: 150,
+  },
+  recommendPic:{
+    width: 80,
+    height: 100,
+    backgroundColor:'blue',
+  },
+  recommendTitle:{
+    width: '95%',
+    height: 40,
+    lineHeight: 40,
+    fontWeight: 'bold',
+    fontSize: 16,
+    // backgroundColor:'yellow',
+    // textAlign: 'left',
+  },
+  recommendText1:{
+    width: 80,
+    height: 20,
+    textAlign: 'center',
+  },
+  recommendText2:{
+    width: 80,
+    height: 20,
+    textAlign: 'center',
+    textDecorationLine: 'line-through',
+    color: "#000",
+  },
+  setpage:{
+    width: '100%',
+    height: '80%',
+    backgroundColor:'yellow',
+  },
+  setheader:{
+    width: '100%',
+    height: 200,
+    backgroundColor: 'blue',
+  },
+  setItem:{
+    width: '100%',
+    height: 150,
+    backgroundColor: 'green',
+    borderStyle: 'dashed',borderColor:'red',borderWidth:2,
+  }
 });
 
 
