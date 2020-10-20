@@ -149,7 +149,7 @@ let SettingsScreen = () => {
   )
     return (
         <View style={styles.setpage}>
-           <FlatList renderItem={item} data={arr1} ListHeaderComponent={header} keyExtractor={item=>item}/>
+           <FlatList renderItem={item} data={arr1} ListHeaderComponent={header} keyExtractor={item=>item.item}/>
         </View>
     );
 }
