@@ -30,6 +30,8 @@ let HomeScreen = ()=>{
   const [bannerData, setBannerData] = useState([]);
   const [menuArr, setMenuArr] = useState([]);
   const [recommendArr, setRecommendArr] = useState([]);
+  const [typeShopArr, setTypeShopArr] = useState([]);
+  const [listArr, setListArr] = useState([1,2,3,4,5,6]);
 
   useEffect(()=>{
     const fetchData = async ()=>{
@@ -37,14 +39,18 @@ let HomeScreen = ()=>{
       setBannerData(infoObj.slides);
       setMenuArr(infoObj.category);
       setRecommendArr(infoObj.recommend);
+      setTypeShopArr(infoObj.floor2)
+      // console.log("=====")
+      //       // console.log(infoObj.floor1)
     }
     fetchData();
   },[])
 
-  return (
-      <View style={styles.page}>
-        {/*<FlatList getItemCount={} data={} getItem={}/>*/}
-        <View style={styles.bannerArea}>
+
+  const headerArea = ()=>{
+    return(
+        <>
+          <View style={styles.bannerArea}>
             <Swiper style={styles.wrapper}  autoplay={true} >
               {bannerData.map((item,key) => {
                 return (
@@ -59,11 +65,59 @@ let HomeScreen = ()=>{
                 )
               })}
             </Swiper>
+          </View>
+          <HeadMenu arrdata={menuArr}></HeadMenu>
+          <ShopRecommendList recommendArr={recommendArr}/>
+          <TypeShopList list={typeShopArr}/>
+        </>
+    )
+  }
+
+  function _rendItem(){
+    return(
+        <View><Text>8888888</Text></View>
+    )
+  }
+
+  function _rendEmpty() {
+    return (
+        <View><Text>There is no data!</Text></View>
+    )
+  }
+
+
+
+  function _onEndReached() {
+    console.log("========end========")
+  }
+
+  function _rendFooter() {
+    return (
+        <View><Text>======Footer======</Text></View>
+    )
+  }
+
+  function _onRefresh() {
+    console.log("========refresh========")
+  }
+
+
+
+  return (
+        <View style={styles.page}>
+          <FlatList
+              data={listArr}
+              renderItem={({ item }) => _rendItem(item)}
+              keyExtractor={(item, index) => index.toString()}
+              ListEmptyComponent= {()=> _rendEmpty()}
+              ListHeaderComponent={()=> headerArea()}
+              onEndReachedThreshold = {1}
+              onEndReached={()=>_onEndReached()}
+              ListFooterComponent={()=>_rendFooter()}
+              onRefresh={()=>_onRefresh()}
+              refreshing={false}
+          />
         </View>
-        <HeadMenu arrdata={menuArr}></HeadMenu>
-        <ShopRecommendList recommendArr={recommendArr}/>
-        <TypeShopList/>
-      </View>
   )
 }
 
@@ -124,10 +178,22 @@ const ShopRecommendList = (props)=>{
   )
 }
 
-const TypeShopList =()=>{
+const TypeShopList =(props)=>{
+  console.log(props.list)
   return(
       <>
-        <Text>888888</Text>
+       <View style={styles.banner2}>
+
+       </View>
+        <View style={styles.typeList}>
+          {props.list.map((item,index)=>{
+            return(
+                <View style={styles.typeListItem} key={index}>
+                  <Text>{item.goodsId}</Text>
+                </View>
+            )
+          })}
+        </View>
       </>
   )
 }
@@ -178,6 +244,7 @@ var styles = StyleSheet.create({
   page:{
     flex: 1,
     alignItems: 'center',
+    height: '100%',
   },
   bannerArea:{
     width: '100%',
@@ -276,6 +343,26 @@ var styles = StyleSheet.create({
     height: 150,
     backgroundColor: 'green',
     borderStyle: 'dashed',borderColor:'red',borderWidth:2,
+  },
+  banner2:{
+    width: '100%',
+    aspectRatio: 3,
+    backgroundColor: 'blue',
+  },
+  typeList:{
+    width: '100%',
+    backgroundColor: 'yellow',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+
+  },
+  typeListItem:{
+    width: '46%',
+    aspectRatio: 1.85,
+    backgroundColor: 'green',
+    marginTop: 10,
   }
 });
 

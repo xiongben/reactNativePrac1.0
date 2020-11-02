@@ -50,7 +50,7 @@ class DetailList extends Component {
 
     _onRefresh() {
         console.log("========refresh========")
-        
+
     }
 
     render() {
@@ -81,7 +81,13 @@ class DetailList extends Component {
                 <View><Text>======Footer======</Text></View>
             )
         }
-        
+
+        const rendHead = () => {
+            return (
+                <View><Text>======header======</Text></View>
+            )
+        }
+
         return (
             <>
                 <StatusBar barStyle="dark-content" />
@@ -91,12 +97,15 @@ class DetailList extends Component {
                         renderItem={({ item }) => rendItem(item)}
                         keyExtractor={(item, index) => index.toString()}
                         ListEmptyComponent= {()=> rendEmpty()}
+                        ListHeaderComponent={()=> rendHead()}
                         onEndReachedThreshold = {1}
                         onEndReached={()=>this._onEndReached()}
                         ListFooterComponent={()=>rendFooter()}
                         onRefresh={()=>this._onRefresh()}
                         refreshing={false}
-                    />
+                    >
+
+                    </FlatList>
                 </SafeAreaView>
             </>
         );
@@ -137,7 +146,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         lineHeight: 40,
         fontSize: 20,
-        
+
     },
     text2: {
        lineHeight: 22,
